@@ -1,0 +1,58 @@
+<svg width="340" height="420" viewBox="0 0 340 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aboutBg" x1="0" y1="0" x2="340" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#31363f"/>
+      <stop offset="1" stop-color="#20232a"/>
+    </linearGradient>
+    <linearGradient id="aboutGlow" x1="170" y1="0" x2="170" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C778DD" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#C778DD" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="340" height="420" fill="url(#aboutBg)"/>
+  <circle cx="170" cy="120" r="140" fill="url(#aboutGlow)"/>
+
+  <!-- monitor -->
+  <g class="float-med">
+    <rect x="70" y="150" width="200" height="130" rx="6" fill="#282c33" stroke="#ABB2BF" stroke-width="1.5"/>
+    <rect x="82" y="162" width="176" height="106" rx="3" fill="#1c1f24"/>
+    <rect x="96" y="176" width="60" height="6" rx="3" fill="#C778DD"/>
+    <rect x="96" y="190" width="100" height="6" rx="3" fill="#ABB2BF"/>
+    <rect x="106" y="204" width="80" height="6" rx="3" fill="#ffffff" opacity="0.7"/>
+    <rect x="96" y="218" width="140" height="6" rx="3" fill="#ABB2BF" opacity="0.6"/>
+    <rect x="96" y="232" width="50" height="6" rx="3" fill="#C778DD"/>
+    <rect x="106" y="246" width="120" height="6" rx="3" fill="#ffffff" opacity="0.4"/>
+    <rect x="150" y="280" width="40" height="14" fill="#1c1f24" stroke="#ABB2BF" stroke-width="1.5"/>
+    <rect x="120" y="294" width="100" height="10" rx="2" fill="#1c1f24" stroke="#ABB2BF" stroke-width="1.5"/>
+  </g>
+
+  <!-- keyboard -->
+  <rect class="float-slow" x="95" y="320" width="150" height="18" rx="4" fill="#282c33" stroke="#ABB2BF" stroke-width="1.2"/>
+
+  <!-- mug -->
+  <g class="float-fast">
+    <rect x="255" y="300" width="30" height="30" rx="4" fill="#282c33" stroke="#C778DD" stroke-width="1.5"/>
+    <path d="M285 306H292C295 306 296 309 292 311H285" stroke="#C778DD" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- plant -->
+  <g class="float-slow">
+    <rect x="45" y="305" width="26" height="24" rx="3" fill="#282c33" stroke="#ABB2BF" stroke-width="1.2"/>
+    <path d="M58 305C58 290 45 285 45 270" stroke="#ABB2BF" stroke-width="1.5" fill="none"/>
+    <path d="M58 305C58 285 70 280 68 265" stroke="#ABB2BF" stroke-width="1.5" fill="none"/>
+    <path d="M58 305C58 292 58 280 58 268" stroke="#C778DD" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- floating dots -->
+  <g class="float-med" opacity="0.8">
+    <circle cx="45" cy="90" r="3" fill="#ABB2BF"/>
+    <circle cx="60" cy="90" r="3" fill="#ABB2BF"/>
+    <circle cx="75" cy="90" r="3" fill="#ABB2BF"/>
+    <circle cx="45" cy="105" r="3" fill="#ABB2BF"/>
+    <circle cx="60" cy="105" r="3" fill="#ABB2BF"/>
+    <circle cx="75" cy="105" r="3" fill="#ABB2BF"/>
+  </g>
+
+  <rect class="float-fast" x="280" y="60" width="34" height="34" stroke="#C778DD" stroke-width="1.5"/>
+</svg>

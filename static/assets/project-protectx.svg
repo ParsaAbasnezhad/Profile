@@ -1,0 +1,12 @@
+<svg width="330" height="201" viewBox="0 0 330 201" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="px-bg" x1="0" y1="0" x2="330" y2="201" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#25313a"/>
+      <stop offset="1" stop-color="#20232a"/>
+    </linearGradient>
+  </defs>
+  <rect width="330" height="201" fill="url(#px-bg)"/>
+  <path d="M165 40L205 55V85C205 115 190 135 165 145C140 135 125 115 125 85V55L165 40Z" fill="#282c33" stroke="#C778DD" stroke-width="2"/>
+  <path d="M150 90L162 102L182 78" stroke="#C778DD" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="165" y="175" font-family="Fira Code, monospace" font-size="15" fill="#ffffff" text-anchor="middle" font-weight="600">ProtectX</text>
+</svg>

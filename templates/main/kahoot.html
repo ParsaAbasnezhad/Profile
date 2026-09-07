@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kahoot Answers Viewer — Project Details | Elias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="project-page project-kahoot">
+
+<div class="loader" id="loader">
+  <span class="loader-bracket">&lt;</span>
+  <span class="loader-dot"></span>
+  <span class="loader-bracket">/&gt;</span>
+</div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<aside class="media-bar">
+  <span class="media-line"></span>
+  <a href="#" aria-label="Github" class="media-icon"><img src="{% static 'assets/icons/github.svg' %}" alt="Github"></a>
+  <a href="#" aria-label="Dribbble" class="media-icon"><img src="{% static 'assets/icons/dribbble.svg' %}" alt="Dribbble"></a>
+  <a href="#" aria-label="Figma" class="media-icon"><img src="{% static 'assets/icons/figma.svg' %}" alt="Figma"></a>
+</aside>
+
+<div class="page">
+  <header class="header">
+    <div class="logo">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;">
+        <img src="{% static 'assets/logo.svg' %}" alt="Elias logo" class="logo-mark">
+        <span>Elias</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <a href="index.html#home" class="nav-link"><span class="hash">#</span>home</a>
+      <a href="index.html#works" class="nav-link active"><span class="hash">#</span>works</a>
+      <a href="index.html#skills" class="nav-link"><span class="hash">#</span>skills</a>
+      <a href="index.html#about-me" class="nav-link"><span class="hash">#</span>about-me</a>
+      <a href="index.html#contacts" class="nav-link"><span class="hash">#</span>contacts</a>
+    </nav>
+    <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <main>
+    <p class="breadcrumb reveal">
+      <a href="index.html">Home</a> / <a href="index.html#works">Projects</a> / <span>Kahoot Answers Viewer</span>
+    </p>
+
+    <section class="project-hero">
+      <div class="project-hero-media reveal reveal-delay-1">
+        <img src="{% static 'assets/project-kahoot.svg' %}" alt="Kahoot Answers Viewer">
+      </div>
+      <div class="project-hero-text reveal reveal-delay-2">
+        <p class="eyebrow"><span class="badge-dot pulse"></span> Personal project · 2021</p>
+        <h1>Kahoot Answers Viewer</h1>
+        <p class="lead">A lightweight companion overlay that fetches the correct answer set for a live Kahoot quiz and displays it in a clean, distraction-free panel — built originally as a fun scripting exercise.</p>
+        <div class="tags">
+          <span>CSS</span><span>Express</span><span>Node.js</span>
+        </div>
+        <div class="project-actions">
+          <a href="#" class="btn btn-outline btn-glow">Live demo &lt;~&gt;</a>
+        </div>
+
+        <div class="meta-row">
+          <div class="meta-item"><h5>Role</h5><p>Solo developer</p></div>
+          <div class="meta-item"><h5>Stack</h5><p>Express + vanilla JS</p></div>
+          <div class="meta-item"><h5>Duration</h5><p>~2 weeks</p></div>
+          <div class="meta-item"><h5>Status</h5><p>Archived</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title reveal">
+        <h2><span class="accent">#</span>overview</h2>
+        <span class="title-line"></span>
+      </div>
+      <p class="project-overview reveal reveal-delay-1">
+        This project came out of curiosity about how Kahoot's public quiz endpoints work. A small Express server
+        polls the quiz session, parses the question set, and streams it to a minimal front-end overlay that renders
+        in a fraction of a second — clean typography, no clutter, just the question and the highlighted answer.
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="section-title reveal">
+        <h2><span class="accent">#</span>key-features</h2>
+        <span class="title-line"></span>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m13 2-8 12h6l-1 8 8-12h-6l1-8Z"/></svg></div>
+          <h4>Instant answer lookup</h4>
+          <p>Answers are resolved and displayed the moment a new question loads, with sub-second latency.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 9h16M8 5v4M12 13h4M8 13h1M8 16h5"/></svg></div>
+          <h4>Minimal overlay UI</h4>
+          <p>A distraction-free panel that stays out of the way until you actually need it.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-3">
+          <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M8 4h8v5a4 4 0 0 1-8 0V4ZM6 5H4v2a4 4 0 0 0 4 4M18 5h2v2a4 4 0 0 1-4 4M12 13v4M8 20h8M9 17h6"/></svg></div>
+          <h4>Live leaderboard view</h4>
+          <p>Tracks scores in real time alongside the answer panel for a fuller picture of the game.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 5h5a2 2 0 1 1 4 0h5v5a2 2 0 1 1 0 4v5h-5a2 2 0 1 1-4 0H5v-5a2 2 0 1 1 0-4V5Z"/></svg></div>
+          <h4>Zero install</h4>
+          <p>Runs entirely in the browser — no extension or executable required to try it out.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title reveal">
+        <h2><span class="accent">#</span>gallery</h2>
+        <span class="title-line"></span>
+      </div>
+      <div class="gallery">
+        <div class="gallery-item reveal reveal-delay-1"><img src="{% static 'assets/project-kahoot.svg' %}" alt="Kahoot answers overlay"></div>
+        <div class="gallery-item reveal reveal-delay-2"><img src="{% static 'assets/hero-illustration.svg' %}" alt="Kahoot leaderboard"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <a href="index.html#works" class="next-project reveal">
+        <div>
+          <p class="label">Next project</p>
+          <h4>ChertNodes — Minecraft hosting panel</h4>
+        </div>
+        <span class="arrow">→</span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <div class="logo">
+            <img src="{% static 'assets/logo.svg' %}" alt="Elias logo" class="logo-mark">
+            <span>Elias</span>
+          </div>
+          <a href="mailto:elias@elias-dev.ml">elias@elias-dev.ml</a>
+        </div>
+        <p>Web designer and front-end developer</p>
+      </div>
+      <div class="footer-media">
+        <h4>Media</h4>
+        <div class="footer-icons">
+          <a href="#" aria-label="Github"><img src="{% static 'assets/icons/github.svg' %}" alt="Github"></a>
+          <a href="#" aria-label="Figma"><img src="{% static 'assets/icons/figma.svg' %}" alt="Figma"></a>
+          <a href="#" aria-label="Discord"><img src="{% static 'assets/icons/discord.svg' %}" alt="Discord"></a>
+        </div>
+      </div>
+    </div>
+    <p class="copyright">© Copyright 2022. Made by Elias</p>
+  </footer>
+</div>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<svg width="330" height="201" viewBox="0 0 330 201" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="kh-bg" x1="0" y1="0" x2="330" y2="201" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3a2f4a"/>
+      <stop offset="1" stop-color="#20232a"/>
+    </linearGradient>
+  </defs>
+  <rect width="330" height="201" fill="url(#kh-bg)"/>
+  <rect x="105" y="45" width="50" height="50" rx="8" fill="#282c33" stroke="#C778DD" stroke-width="1.5"/>
+  <rect x="163" y="45" width="50" height="50" rx="8" fill="#282c33" stroke="#ABB2BF" stroke-width="1.5"/>
+  <rect x="105" y="103" width="50" height="50" rx="8" fill="#282c33" stroke="#ABB2BF" stroke-width="1.5"/>
+  <rect x="163" y="103" width="50" height="50" rx="8" fill="#282c33" stroke="#C778DD" stroke-width="1.5"/>
+  <text x="130" y="76" font-family="Fira Code, monospace" font-size="20" fill="#C778DD" text-anchor="middle">?</text>
+  <text x="188" y="76" font-family="Fira Code, monospace" font-size="20" fill="#ABB2BF" text-anchor="middle">✓</text>
+  <text x="130" y="134" font-family="Fira Code, monospace" font-size="20" fill="#ABB2BF" text-anchor="middle">✕</text>
+  <text x="188" y="134" font-family="Fira Code, monospace" font-size="20" fill="#C778DD" text-anchor="middle">?</text>
+  <text x="165" y="175" font-family="Fira Code, monospace" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="600">Kahoot Answers Viewer</text>
+</svg>

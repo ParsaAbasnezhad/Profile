@@ -1,0 +1,48 @@
+# == Python Bytecode / Compiled files ==
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# == Virtual Environments ==
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# == Environment Variables & Secrets ==
+.env
+.secrets
+*.env.local
+
+# == Databases ==
+*.sqlite3
+
+# == Django Media & Static collected assets ==
+# Note: You generally want to track your static source files,
+# but ignore the collected destination and user-uploaded media files.
+media/
+staticfiles/
+static_cdn/
+
+# == OS & System Files ==
+.DS_Store
+Thumbs.db
+db.json
+
+# == IDEs and Editors ==
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# == Testing & Coverage ==
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
