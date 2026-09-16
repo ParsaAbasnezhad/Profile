@@ -1,9 +1,35 @@
-# Parsa Abasnezhad - Portfolio
+<div align="center">
 
-A personal portfolio website built with Django for presenting profile
-information, skills, projects, and contact options.
+<img src="static/assets/logo.svg" alt="Parsa Abasnezhad logo" width="96">
 
-## Features
+# Parsa Abasnezhad
+
+### Personal portfolio built with Django
+
+<p>
+  <img src="https://img.shields.io/badge/Python-282c33?style=flat-square&logo=python&logoColor=c778dd" alt="Python">
+  <img src="https://img.shields.io/badge/Django-282c33?style=flat-square&logo=django&logoColor=c778dd" alt="Django">
+  <img src="https://img.shields.io/badge/SQLite-282c33?style=flat-square&logo=sqlite&logoColor=c778dd" alt="SQLite">
+  <img src="https://img.shields.io/badge/Security--focused-c778dd?style=flat-square&logo=shield&logoColor=ffffff" alt="Security focused">
+</p>
+
+<p>
+  <em>Build. Ship. Improve.</em>
+</p>
+
+</div>
+
+> A dark, developer-focused portfolio for presenting profile information,
+> skills, projects, and contact options.
+
+<p align="center">
+  <a href="#features">Features</a> ·
+  <a href="#local-installation">Installation</a> ·
+  <a href="#website-routes">Routes</a> ·
+  <a href="#production-deployment">Deployment</a>
+</p>
+
+## `01` / Features
 
 - Portfolio homepage with profile information, hero statistics, skills, and a
   "Now Building" section
@@ -17,7 +43,7 @@ information, skills, projects, and contact options.
 - Security headers, CSP, secure production cookies, and request-size limits
 - Sensitive configuration loaded from a local `.env` file
 
-## Technology Stack
+## `02` / Technology Stack
 
 - Python
 - Django 6.1.1
@@ -25,7 +51,7 @@ information, skills, projects, and contact options.
 - Pillow for image uploads and processing
 - HTML, CSS, and JavaScript
 
-## Project Structure
+## `03` / Project Structure
 
 ```text
 .
@@ -49,7 +75,7 @@ information, skills, projects, and contact options.
 └── .env.example
 ```
 
-## Local Installation
+## `04` / Local Installation
 
 The following commands use Windows PowerShell:
 
@@ -92,7 +118,7 @@ also start the server and open the browser automatically:
 python start_server.py
 ```
 
-## Environment Configuration
+## `05` / Environment Configuration
 
 Settings are loaded from `.env` and system environment variables.
 
@@ -118,7 +144,7 @@ DJANGO_ADMIN_URL=secure-admin/
 DJANGO_TRUST_X_FORWARDED_FOR=True
 ```
 
-## Website Routes
+## `06` / Website Routes
 
 | Route | Description |
 |---|---|
@@ -134,7 +160,7 @@ DJANGO_TRUST_X_FORWARDED_FOR=True
 The Admin path is not hardcoded in the URL configuration. It is loaded from
 the `DJANGO_ADMIN_URL` environment variable.
 
-## Content Management
+## `07` / Content Management
 
 After creating a superuser, use the Admin panel to manage:
 
@@ -151,7 +177,7 @@ After creating a superuser, use the Admin panel to manage:
 For a complete homepage, create at least one `Profile` and add the required
 projects, skills, and contact links through the Admin panel.
 
-## Testing and Validation
+## `08` / Testing and Validation
 
 Check the Django configuration:
 
@@ -165,7 +191,7 @@ Run the test suite:
 python manage.py test
 ```
 
-## Production Deployment
+## `09` / Production Deployment
 
 Before deploying:
 
@@ -187,7 +213,7 @@ Before deploying:
    Nginx or a managed cloud service. `runserver` is for development only.
 9. Enable HTTPS, database backups, and restricted access to the Admin panel.
 
-## Security
+## `10` / Security
 
 - `.env`, the database, and uploaded media are excluded from Git.
 - Never place real secrets in `settings.py` or any other source file.
