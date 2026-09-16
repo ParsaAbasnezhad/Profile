@@ -16,13 +16,26 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import path, include
+from django.conf.urls.static import static
+from django.urls import include, path
+from main.sitemaps import PortfolioSitemap, ProjectSitemap
+
+handler404 = "main.views.error_404_view"
+handler500 = "main.views.error_500_view"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": {"portfolio": PortfolioSitemap, "projects": ProjectSitemap}},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
     path('', include('main.urls')),
 ]
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

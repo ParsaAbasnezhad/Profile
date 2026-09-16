@@ -1,0 +1,269 @@
+{% extends 'base_site.html' %}
+{% load static %}
+{% block title %}{{ profile.full_name|default:"Parsa Abasnezhad" }} | متخصص پایتون و توسعه‌دهنده فول‌استک{% endblock title %}
+{% block og_title %}{{ profile.full_name|default:"Parsa Abasnezhad" }} | Python Developer{% endblock og_title %}
+
+
+{% block content %}
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-text">
+            <p class="eyebrow reveal">
+                <span class="badge-dot pulse"></span>
+                {% if profile.is_available_for_freelance %}Available for freelance work{% else %}Currently
+                    unavailable{% endif %}
+            </p>
+            <h1 class="hero-heading reveal reveal-delay-1">
+                <span>{{ profile.full_name|default:"I" }} is a <span
+                        class="accent">{{ profile.role_title|default:"developer" }}</span></span>
+                <span class="hero-animated-line">and <span class="accent typewriter" id="typewriter"
+                                                           data-words="{{ profile.typewriter_roles }}"></span></span>
+            </h1>
+            <p class="reveal reveal-delay-2">{{ profile.tagline }}</p>
+            <div class="hero-actions reveal reveal-delay-3">
+                <a href="#contacts" class="btn btn-outline btn-glow">Contact me!!</a>
+                <a href="#works" class="btn btn-ghost">View my work</a>
+            </div>
+
+            {% if profile.stats.all %}
+                <div class="mini-stats reveal reveal-delay-4">
+                    {% for stat in profile.stats.all %}
+                        <div class="mini-stat">
+                            <span class="stat-number" data-target="{{ stat.target_value }}">0</span><span
+                                class="stat-suffix">{{ stat.suffix }}</span>
+                            <p>{{ stat.label }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="hero-media reveal reveal-delay-2">
+            {% if now_building %}
+                <div class="working-badge">
+                    <span class="badge-dot"></span>
+                    <p>Currently working on <b>{{ now_building.title }}</b></p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Now building -->
+    {% if now_building %}
+        <section class="now-building reveal" aria-labelledby="now-building-title">
+            <div class="now-building-content">
+                <p class="eyebrow"><span class="badge-dot pulse"></span> Now building</p>
+                <div class="now-building-heading">
+                    <h2 id="now-building-title">{{ now_building.title }}</h2>
+                    <span class="status-chip">{{ now_building.status }}</span>
+                </div>
+                <p class="now-building-copy">{{ now_building.description }}</p>
+                <div class="build-progress"
+                     aria-label="{{ now_building.title }} progress: {{ now_building.progress_percent }} percent">
+                    <div class="build-progress-label">
+                        <span>Current progress</span><strong>{{ now_building.progress_percent }}%</strong></div>
+                    <div class="build-progress-track"><span style="width: {{ now_building.progress_percent }}%"></span>
+                    </div>
+                </div>
+                <div class="build-details">
+                    <div><span class="detail-label">Stack</span><strong>{{ now_building.stack }}</strong></div>
+                    <div><span class="detail-label">Last update</span><strong>{{ now_building.updated_at|timesince }}
+                        ago</strong></div>
+                </div>
+                <div class="now-building-actions">
+                    <a href="#works" class="btn btn-outline btn-sm">Explore projects &gt;</a>
+                    {% if now_building.next_note %}
+                        <span class="build-note">{{ now_building.next_note }}</span>{% endif %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <!-- Quote -->
+    {% if quote %}
+        <section class="quote-wrap reveal">
+            <blockquote class="quote">
+                <span class="quote-mark quote-mark-open">&ldquo;</span>
+                <p>{{ quote.text }}</p>
+                <footer>
+                    <span class="quote-mark quote-mark-small">&ldquo;</span>
+                    - {{ quote.author }}
+                </footer>
+            </blockquote>
+        </section>
+    {% endif %}
+    <!-- Marquee -->
+    {% if projects or skill_categories %}
+        <section class="marquee-wrap reveal" aria-hidden="true">
+            <div class="marquee-track">
+                {% for loop in "12" %}
+                    <div class="marquee-group">
+                        {% for project in projects %}
+                            <span class="marquee-item">{{ project.title }}</span>
+                            <span class="marquee-sep" aria-hidden="true">✦</span>
+                        {% endfor %}
+                        {% for category in skill_categories %}
+                            {% for item in category.items.all %}
+                                <span class="marquee-item">{{ item.name }}</span>
+                                <span class="marquee-sep" aria-hidden="true">✦</span>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+    <!-- Projects -->
+    <section class="section" id="works">
+        <div class="section-title reveal">
+            <h2><span class="accent">#</span>projects</h2>
+            <span class="title-line"></span>
+            <a href="#" class="view-all">View all ~~&gt;</a>
+        </div>
+
+        <div class="projects-grid">
+            {% for project in projects %}
+                <article class="project-card reveal {% cycle 'reveal-delay-1' 'reveal-delay-2' 'reveal-delay-3' %}">
+                    <div class="project-image">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy" decoding="async">
+                    </div>
+                    <div class="tags">
+                        {% for tag in project.tags.all %}<span>{{ tag.name }}</span>{% endfor %}
+                    </div>
+                    <div class="project-body">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description }}</p>
+                        <div class="project-links">
+                            {% if project.live_url %}
+                                <a href="{{ project.live_url }}" class="btn btn-outline btn-sm">Live &lt;~&gt;</a>
+                            {% endif %}
+                            {% if project.cached_url %}
+                                <a href="{{ project.cached_url }}" class="btn btn-ghost btn-sm">Cached &gt;=</a>
+                            {% endif %}
+                            <a href="{% url 'portfolio:project_detail' slug=project.slug %}"
+                               class="btn btn-ghost btn-sm">Details</a>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <p>No projects published yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="section" id="skills">
+        <div class="section-title reveal">
+            <h2><span class="accent">#</span>skills</h2>
+            <span class="title-line"></span>
+        </div>
+
+        <div class="skills-wrap">
+            <div class="skills-grid">
+                {% for category in skill_categories %}
+                    <div class="skill-block reveal">
+                        <h4>{{ category.name }}</h4>
+                        <hr>
+                        {% if category.show_as_bars %}
+                            <div class="skill-bars">
+                                {% for item in category.items.all %}
+                                    <div class="skill-bar"><span>{{ item.name }}</span><i
+                                            style="--w:{{ item.proficiency_percent }}%"></i></div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="tag-cloud">
+                                {% for item in category.items.all %}<span>{{ item.name }}</span>{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- About me -->
+    <section class="section about" id="about-me">
+        <div class="section-title reveal">
+            <h2><span class="accent">#</span>about-me</h2>
+            <span class="title-line"></span>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-text reveal reveal-delay-1">
+                <p>Hello, i'm {{ profile.full_name }}!</p>
+                {{ profile.about_text|linebreaks }}
+            </div>
+            <div class="about-media reveal reveal-delay-2">
+                {% if profile.about_image %}
+                    <img src="{{ profile.about_image.url }}" alt="{{ profile.full_name }} workspace illustration"
+                         class="about-image" loading="lazy" decoding="async">
+                {% else %}
+                    <img src="{% static 'assets/about-illustration.svg' %}" alt="Workspace illustration"
+                         class="about-image" loading="lazy" decoding="async">
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts -->
+    <section class="section" id="contacts">
+        <div class="section-title reveal">
+            <h2><span class="accent">#</span>contacts</h2>
+            <span class="title-line"></span>
+        </div>
+
+        <div class="contacts-grid">
+            <p class="contacts-text reveal reveal-delay-1">I'm interested in freelance opportunities. However, if
+                you have other request or question, don't hesitate to contact me</p>
+            {% if contact_links %}
+                <div class="contact-card reveal reveal-delay-2">
+                    <h4>Message me here</h4>
+                    {% for link in contact_links %}
+                        <div class="contact-item">
+                            {% if link.icon %}<img src="{{ link.icon.url }}" alt="{{ link.label }}">{% endif %}
+                            <span>{{ link.label }}: {{ link.value }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Message form -->
+    <section class="section" id="message">
+        <div class="section-title reveal">
+            <h2><span class="accent">#</span>send-message</h2>
+            <span class="title-line"></span>
+        </div>
+
+        <div class="form-wrap reveal reveal-delay-1">
+            <form id="contactForm" class="contact-form" novalidate
+                  data-action="{% url 'portfolio:contact_message_create' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="cf-name">Name</label>
+                    <input type="text" id="cf-name" name="name" placeholder="Your name" autocomplete="name">
+                    <span class="field-error">Please enter your name</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="cf-contact">Email or phone number</label>
+                    <input type="text" id="cf-contact" name="contact"
+                           placeholder="you@example.com or +1 555 123 4567" autocomplete="email">
+                    <span class="field-error">Please enter a valid email or phone number</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="cf-message">Message</label>
+                    <textarea id="cf-message" name="message" rows="5"
+                              placeholder="Tell me a bit about your project..."></textarea>
+                    <span class="field-error">Please write a short message</span>
+                </div>
+
+                <button type="submit" id="cf-submit" class="btn btn-outline btn-glow">Send message</button>
+                <p id="formStatus" class="form-status"></p>
+            </form>
+        </div>
+    </section>
+{% endblock content %}

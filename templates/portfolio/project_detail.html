@@ -1,0 +1,106 @@
+{% extends 'base_site.html' %}
+{% load static %}
+{% block title %}{{ project.title }} — Project Details | {{ profile.full_name|default:"Portfolio" }}{% endblock title %}
+{% block og_title %}{{ project.title }} | {{ profile.full_name|default:"Parsa Abasnezhad" }}{% endblock og_title %}
+
+{% block content %}
+    <p class="breadcrumb reveal">
+        <a href="{% url 'portfolio:profile' %}">Home</a> /
+        <a href="{% url 'portfolio:profile' %}#works">Projects</a> /
+        <span>{{ project.title }}</span>
+    </p>
+
+    <section class="project-hero">
+        <div class="project-hero-media reveal reveal-delay-1">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+        </div>
+        <div class="project-hero-text reveal reveal-delay-2">
+            <p class="eyebrow">
+                <span class="badge-dot pulse"></span>
+                Personal project{% if project.year %} · {{ project.year }}{% else %} · {{ project.created_at|date:"Y" }}{% endif %}
+            </p>
+            <h1>{{ project.title }}</h1>
+            <p class="lead">{{ project.description }}</p>
+            <div class="tags">
+                {% for tag in project.tags.all %}<span>{{ tag.name }}</span>{% endfor %}
+            </div>
+            <div class="project-actions">
+                {% if project.live_url %}
+                    <a href="{{ project.live_url }}" class="btn btn-outline btn-glow">Live demo &lt;~&gt;</a>
+                {% endif %}
+                {% if project.cached_url %}
+                    <a href="{{ project.cached_url }}" class="btn btn-ghost">Cached &gt;=</a>
+                {% endif %}
+            </div>
+
+            {% if project.role or project.duration or project.status or project.tags.all %}
+                <div class="meta-row">
+                    {% if project.role %}<div class="meta-item"><h5>Role</h5><p>{{ project.role }}</p></div>{% endif %}
+                    {% if project.tags.all %}<div class="meta-item"><h5>Stack</h5><p>{{ project.tags.all|join:", " }}</p></div>{% endif %}
+                    {% if project.duration %}<div class="meta-item"><h5>Duration</h5><p>{{ project.duration }}</p></div>{% endif %}
+                    {% if project.status %}<div class="meta-item"><h5>Status</h5><p>{{ project.status }}</p></div>{% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    {% if project.overview %}
+        <section class="section">
+            <div class="section-title reveal">
+                <h2><span class="accent">#</span>overview</h2>
+                <span class="title-line"></span>
+            </div>
+            <p class="project-overview reveal reveal-delay-1">{{ project.overview }}</p>
+        </section>
+    {% endif %}
+
+    {% if project.features.all %}
+        <section class="section">
+            <div class="section-title reveal">
+                <h2><span class="accent">#</span>key-features</h2>
+                <span class="title-line"></span>
+            </div>
+            <div class="feature-grid">
+                {% for feature in project.features.all %}
+                    <div class="feature-card reveal {% cycle 'reveal-delay-1' 'reveal-delay-2' 'reveal-delay-3' %}">
+                        {% if feature.icon_svg %}
+                            <div class="feature-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" focusable="false">{{ feature.icon_svg|safe }}</svg>
+                            </div>
+                        {% endif %}
+                        <h4>{{ feature.title }}</h4>
+                        <p>{{ feature.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if project.gallery_images.all %}
+        <section class="section">
+            <div class="section-title reveal">
+                <h2><span class="accent">#</span>gallery</h2>
+                <span class="title-line"></span>
+            </div>
+            <div class="gallery">
+                {% for image in project.gallery_images.all %}
+                    <div class="gallery-item reveal {% cycle 'reveal-delay-1' 'reveal-delay-2' %}">
+                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:project.title }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+    {% if next_project %}
+        <section class="section">
+            <a href="{% url 'portfolio:project_detail' slug=next_project.slug %}" class="next-project reveal">
+                <div>
+                    <p class="label">Next project</p>
+                    <h4>{{ next_project.title }}</h4>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </section>
+    {% endif %}
+{% endblock content %}

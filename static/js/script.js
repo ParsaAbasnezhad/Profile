@@ -88,8 +88,11 @@ const revealObserver = new IntersectionObserver((entries) => {
 revealEls.forEach(el => revealObserver.observe(el));
 
 /* ---------------- Typewriter effect ---------------- */
-const words = ['front-end developer', 'UI craftsman', 'problem solver', 'lifelong learner'];
 const typewriterEl = document.getElementById('typewriter');
+const words = (typewriterEl?.dataset.words || 'front-end developer,UI craftsman,problem solver,lifelong learner')
+  .split(',')
+  .map(word => word.trim())
+  .filter(Boolean);
 let wordIndex = 0, charIndex = 0, deleting = false;
 
 function typeLoop() {
@@ -112,7 +115,107 @@ function typeLoop() {
   }
   setTimeout(typeLoop, deleting ? 40 : 80);
 }
-if (typewriterEl) typeLoop();
+if (typewriterEl && words.length) typeLoop();
+
+/* ---------------- Contact form ---------------- */
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  const formStatus = document.getElementById('formStatus');
+  const submitButton = document.getElementById('cf-submit');
+
+  contactForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    contactForm.querySelectorAll('.form-group').forEach(group => group.classList.remove('error'));
+    if (formStatus) {
+      formStatus.className = 'form-status';
+      formStatus.textContent = '';
+    }
+
+    const formData = new FormData(contactForm);
+    if (submitButton) submitButton.disabled = true;
+    try {
+      const response = await fetch(contactForm.dataset.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        Object.keys(result.errors || {}).forEach(name => {
+          const field = contactForm.elements[name];
+          field?.closest('.form-group')?.classList.add('error');
+        });
+        if (formStatus) {
+          formStatus.classList.add('error');
+          formStatus.textContent = 'Please correct the highlighted fields.';
+        }
+        return;
+      }
+
+      contactForm.reset();
+      if (formStatus) {
+        formStatus.classList.add('success');
+        formStatus.textContent = result.message;
+      }
+    } catch (error) {
+      if (formStatus) {
+        formStatus.classList.add('error');
+        formStatus.textContent = 'Unable to send the message. Please try again.';
+      }
+      console.error('Contact form submission failed:', error);
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
+}
+
+/* ---------------- Visit request form ---------------- */
+const visitForm = document.getElementById('visitForm');
+if (visitForm) {
+  const visitStatus = document.getElementById('visitStatus');
+  const visitSubmit = document.getElementById('visit-submit');
+
+  visitForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    visitForm.querySelector('.form-group')?.classList.remove('error');
+    if (visitStatus) {
+      visitStatus.className = 'form-status';
+      visitStatus.textContent = '';
+    }
+    if (visitSubmit) visitSubmit.disabled = true;
+
+    try {
+      const response = await fetch(visitForm.dataset.action, {
+        method: 'POST',
+        body: new FormData(visitForm),
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        visitForm.elements.phone.closest('.form-group').classList.add('error');
+        if (visitStatus) {
+          visitStatus.classList.add('error');
+          visitStatus.textContent = result.errors?.phone || 'Please enter a valid phone number.';
+        }
+        return;
+      }
+      visitForm.reset();
+      if (visitStatus) {
+        visitStatus.classList.add('success');
+        visitStatus.textContent = result.message;
+      }
+    } catch (error) {
+      if (visitStatus) {
+        visitStatus.classList.add('error');
+        visitStatus.textContent = 'Unable to submit the request. Please try again.';
+      }
+      console.error('Visit request submission failed:', error);
+    } finally {
+      if (visitSubmit) visitSubmit.disabled = false;
+    }
+  });
+}
 
 /* ---------------- Animated stat counters ---------------- */
 const statEls = document.querySelectorAll('.stat-number');

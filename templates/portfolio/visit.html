@@ -1,0 +1,34 @@
+{% extends 'base_site.html' %}
+{% load static %}
+
+{% block title %}Request a Visit | {{ profile.full_name|default:"Portfolio" }}{% endblock title %}
+
+{% block content %}
+    <div class="visit-page">
+        <p class="breadcrumb reveal">
+            <a href="{% url 'portfolio:profile' %}">Home</a> /
+            <span>Request a visit</span>
+        </p>
+
+        <section class="visit-hero">
+            <div class="visit-page-copy reveal">
+                <p class="eyebrow"><span class="badge-dot pulse"></span> Meet up</p>
+                <h1>Let’s arrange a meeting</h1>
+                <p>Enter your phone number to arrange a meeting. We will contact you as soon as possible to confirm the details.</p>
+            </div>
+
+            <form id="visitForm" class="visit-form reveal reveal-delay-1"
+                  data-action="{% url 'portfolio:visit_request_create' %}" novalidate>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="visit-phone">Phone number</label>
+                    <input type="tel" id="visit-phone" name="phone"
+                           placeholder="+98 912 123 4567" autocomplete="tel" required>
+                    <span class="field-error">Please enter a valid phone number.</span>
+                </div>
+                <button type="submit" id="visit-submit" class="btn btn-outline btn-glow">Request a visit</button>
+                <p id="visitStatus" class="form-status" aria-live="polite"></p>
+            </form>
+        </section>
+    </div>
+{% endblock content %}
