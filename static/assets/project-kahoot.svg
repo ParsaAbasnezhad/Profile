@@ -1,18 +1,1 @@
-<svg width="330" height="201" viewBox="0 0 330 201" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="kh-bg" x1="0" y1="0" x2="330" y2="201" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#3a2f4a"/>
-      <stop offset="1" stop-color="#20232a"/>
-    </linearGradient>
-  </defs>
-  <rect width="330" height="201" fill="url(#kh-bg)"/>
-  <rect x="105" y="45" width="50" height="50" rx="8" fill="#282c33" stroke="#C778DD" stroke-width="1.5"/>
-  <rect x="163" y="45" width="50" height="50" rx="8" fill="#282c33" stroke="#ABB2BF" stroke-width="1.5"/>
-  <rect x="105" y="103" width="50" height="50" rx="8" fill="#282c33" stroke="#ABB2BF" stroke-width="1.5"/>
-  <rect x="163" y="103" width="50" height="50" rx="8" fill="#282c33" stroke="#C778DD" stroke-width="1.5"/>
-  <text x="130" y="76" font-family="Fira Code, monospace" font-size="20" fill="#C778DD" text-anchor="middle">?</text>
-  <text x="188" y="76" font-family="Fira Code, monospace" font-size="20" fill="#ABB2BF" text-anchor="middle">✓</text>
-  <text x="130" y="134" font-family="Fira Code, monospace" font-size="20" fill="#ABB2BF" text-anchor="middle">✕</text>
-  <text x="188" y="134" font-family="Fira Code, monospace" font-size="20" fill="#C778DD" text-anchor="middle">?</text>
-  <text x="165" y="175" font-family="Fira Code, monospace" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="600">Kahoot Answers Viewer</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="330" height="201" fill="none" viewBox="0 0 330 201"><defs><linearGradient id="a" x1="0" x2="330" y1="0" y2="201" gradientUnits="userSpaceOnUse"><stop stop-color="#3a2f4a"/><stop offset="1" stop-color="#20232a"/></linearGradient></defs><path fill="url(#a)" d="M0 0h330v201H0z"/><rect width="50" height="50" x="105" y="45" fill="#282c33" stroke="#c778dd" stroke-width="1.5" rx="8"/><rect width="50" height="50" x="163" y="45" fill="#282c33" stroke="#abb2bf" stroke-width="1.5" rx="8"/><rect width="50" height="50" x="105" y="103" fill="#282c33" stroke="#abb2bf" stroke-width="1.5" rx="8"/><rect width="50" height="50" x="163" y="103" fill="#282c33" stroke="#c778dd" stroke-width="1.5" rx="8"/><text x="130" y="76" fill="#c778dd" font-family="Fira Code, monospace" font-size="20" text-anchor="middle">?</text><text x="188" y="76" fill="#abb2bf" font-family="Fira Code, monospace" font-size="20" text-anchor="middle">✓</text><text x="130" y="134" fill="#abb2bf" font-family="Fira Code, monospace" font-size="20" text-anchor="middle">✕</text><text x="188" y="134" fill="#c778dd" font-family="Fira Code, monospace" font-size="20" text-anchor="middle">?</text><text x="165" y="175" fill="#fff" font-family="Fira Code, monospace" font-size="14" font-weight="600" text-anchor="middle">Kahoot Answers Viewer</text></svg>

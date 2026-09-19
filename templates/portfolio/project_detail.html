@@ -3,6 +3,10 @@
 {% block title %}{{ project.title }} — Project Details | {{ profile.full_name|default:"Portfolio" }}{% endblock title %}
 {% block og_title %}{{ project.title }} | {{ profile.full_name|default:"Parsa Abasnezhad" }}{% endblock og_title %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/project.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
     <p class="breadcrumb reveal">
         <a href="{% url 'portfolio:profile' %}">Home</a> /

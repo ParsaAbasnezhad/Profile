@@ -3,6 +3,9 @@
 {% block title %}{{ profile.full_name|default:"Parsa Abasnezhad" }} | متخصص پایتون و توسعه‌دهنده فول‌استک{% endblock title %}
 {% block og_title %}{{ profile.full_name|default:"Parsa Abasnezhad" }} | Python Developer{% endblock og_title %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
     <!-- Hero -->

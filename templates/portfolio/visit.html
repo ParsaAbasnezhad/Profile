@@ -3,6 +3,10 @@
 
 {% block title %}Request a Visit | {{ profile.full_name|default:"Portfolio" }}{% endblock title %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/visit.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
     <div class="visit-page">
         <p class="breadcrumb reveal">
