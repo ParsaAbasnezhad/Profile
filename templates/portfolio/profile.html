@@ -41,14 +41,7 @@
             {% endif %}
         </div>
 
-        <div class="hero-media reveal reveal-delay-2">
-            {% if now_building %}
-                <div class="working-badge">
-                    <span class="badge-dot"></span>
-                    <p>Currently working on <b>{{ now_building.title }}</b></p>
-                </div>
-            {% endif %}
-        </div>
+
     </section>
 
     <!-- Now building -->
@@ -128,7 +121,8 @@
             {% for project in projects %}
                 <article class="project-card reveal {% cycle 'reveal-delay-1' 'reveal-delay-2' 'reveal-delay-3' %}">
                     <div class="project-image">
-                        <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy" decoding="async">
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" width="{{ project.image.width }}"
+                             height="{{ project.image.height }}" loading="lazy" decoding="async">
                     </div>
                     <div class="tags">
                         {% for tag in project.tags.all %}<span>{{ tag.name }}</span>{% endfor %}
@@ -200,10 +194,11 @@
             <div class="about-media reveal reveal-delay-2">
                 {% if profile.about_image %}
                     <img src="{{ profile.about_image.url }}" alt="{{ profile.full_name }} workspace illustration"
-                         class="about-image" loading="lazy" decoding="async">
+                         class="about-image" width="{{ profile.about_image.width }}" height="{{ profile.about_image.height }}"
+                         loading="lazy" decoding="async">
                 {% else %}
                     <img src="{% static 'assets/about-illustration.svg' %}" alt="Workspace illustration"
-                         class="about-image" loading="lazy" decoding="async">
+                         class="about-image" width="320" height="240" loading="lazy" decoding="async">
                 {% endif %}
             </div>
         </div>

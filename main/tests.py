@@ -86,3 +86,28 @@ class PublicFormSecurityTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(VisitRequest.objects.get().phone, "09121234567")
+
+    def test_visit_rejects_invalid_phone(self):
+        token = self.csrf_token()
+        response = self.client.post(
+            "/visit-request/",
+            {"phone": "1234567"},
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_REFERER="https://testserver/",
+            secure=True,
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("phone", response.json()["errors"])
+
+    def test_visit_rejects_duplicate_phone_in_any_supported_format(self):
+        VisitRequest.objects.create(phone="09121234567")
+        token = self.csrf_token()
+        response = self.client.post(
+            "/visit-request/",
+            {"phone": "+98 912 123 4567"},
+            HTTP_X_CSRFTOKEN=token,
+            HTTP_REFERER="https://testserver/",
+            secure=True,
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("already exists", response.json()["errors"]["phone"][0])

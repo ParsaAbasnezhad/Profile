@@ -1,9 +1,20 @@
 {% load static %}
 
 <div class="loader" id="loader">
-    <span class="loader-bracket">&lt;</span>
-    <span class="loader-dot"></span>
-    <span class="loader-bracket">/&gt;</span>
+    <div class="loader-shell" role="status" aria-label="Loading portfolio">
+        <div class="loader-brand">
+            <img src="{% static 'assets/logo.svg' %}" alt="" class="loader-logo">
+            <span>{{ profile.full_name|default:"Portfolio" }}</span>
+        </div>
+        <div class="loader-orbit" aria-hidden="true">
+            <span class="loader-orbit-dot"></span>
+        </div>
+        <p class="loader-status">
+            <span class="loader-status-dot"></span>
+            Preparing your experience<span class="loader-cursor">_</span>
+        </p>
+        <div class="loader-progress" aria-hidden="true"><span></span></div>
+    </div>
 </div>
 
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -20,7 +31,8 @@
 <div class="header-bar" id="headerBar">
     <header class="header" id="home">
         <div class="logo">
-            <a href="{% url 'portfolio:profile' %}" class="logo-link">
+            <a href="{% url 'portfolio:profile' %}" class="logo-link"
+               aria-label="{{ profile.full_name|default:'Portfolio' }} home">
                 <img src="{% static 'assets/logo.svg' %}" alt="{{ profile.full_name|default:'Portfolio' }} logo"
                      class="logo-mark">
                 <span>{{ profile.full_name|default:"Portfolio" }}</span>
@@ -35,19 +47,7 @@
             <a href="{% url 'portfolio:visit' %}" class="nav-link"><span class="hash">#</span>visit</a>
             <a href="{% url 'portfolio:profile' %}#message" class="nav-link nav-message"><span
                     class="hash">#</span>send-message</a>
-            <div class="lang-switcher" id="langSwitcher">
-                <button class="lang-btn" id="langBtn" type="button" aria-expanded="false" aria-haspopup="listbox"
-                        aria-controls="langDropdown">
-                    <span id="langLabel">EN</span>
-                    <svg width="10" height="5" viewBox="0 0 10 5" fill="none" aria-hidden="true">
-                        <path d="M1 1L5 4L9 1" stroke="#ABB2BF" stroke-width="1.5"/>
-                    </svg>
-                </button>
-                <div class="lang-dropdown" id="langDropdown" role="listbox">
-                    <p data-lang="RU" role="option">RU</p>
-                    <p data-lang="UA" role="option">UA</p>
-                </div>
-            </div>
+      
         </nav>
         <button class="burger" id="burgerBtn" type="button" aria-label="Open menu" aria-expanded="false"
                 aria-controls="siteNav">

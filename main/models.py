@@ -212,7 +212,7 @@ class ContactMessage(models.Model):
 
 class VisitRequest(models.Model):
     """Phone numbers submitted by visitors who want to arrange a meeting."""
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=11, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_contacted = models.BooleanField(default=False)
 

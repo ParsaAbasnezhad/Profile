@@ -16,7 +16,8 @@
 
     <section class="project-hero">
         <div class="project-hero-media reveal reveal-delay-1">
-            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" width="{{ project.image.width }}"
+                 height="{{ project.image.height }}" fetchpriority="high" decoding="async">
         </div>
         <div class="project-hero-text reveal reveal-delay-2">
             <p class="eyebrow">
@@ -89,7 +90,9 @@
             <div class="gallery">
                 {% for image in project.gallery_images.all %}
                     <div class="gallery-item reveal {% cycle 'reveal-delay-1' 'reveal-delay-2' %}">
-                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:project.title }}">
+                        <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:project.title }}"
+                             width="{{ image.image.width }}" height="{{ image.image.height }}" loading="lazy"
+                             decoding="async">
                     </div>
                 {% endfor %}
             </div>

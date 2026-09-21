@@ -1,6 +1,7 @@
 import json
 
 from django.conf import settings
+from django.db import IntegrityError
 from django.http import HttpResponse, JsonResponse
 from django.utils.safestring import mark_safe
 from django.shortcuts import get_object_or_404, render
@@ -165,5 +166,11 @@ def visit_request_create(request):
         return JsonResponse({"ok": False, "errors": form.errors.get_json_data()}, status=400)
     if form.is_honeypot_triggered():
         return JsonResponse({"ok": True, "message": "Your visit request has been submitted. We will contact you soon."})
-    VisitRequest.objects.create(phone=form.cleaned_data["phone"])
+    try:
+        VisitRequest.objects.create(phone=form.cleaned_data["phone"])
+    except IntegrityError:
+        return JsonResponse(
+            {"ok": False, "errors": {"phone": ["A visit request for this phone number already exists."]}},
+            status=400,
+        )
     return JsonResponse({"ok": True, "message": "Your visit request has been submitted. We will contact you soon."})

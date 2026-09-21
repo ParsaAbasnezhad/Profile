@@ -1,7 +1,13 @@
 from django import forms
 
 from .security import sanitize_text
-from .views_constants import EMAIL_RE, PHONE_RE, normalize_phone
+from .views_constants import (
+    EMAIL_RE,
+    IRAN_MOBILE_RE,
+    PHONE_RE,
+    normalize_iranian_mobile,
+    normalize_phone,
+)
 
 
 class ContactMessageForm(forms.Form):
@@ -38,9 +44,9 @@ class VisitRequestForm(forms.Form):
     company_website = forms.CharField(required=False, max_length=200)
 
     def clean_phone(self):
-        phone = normalize_phone(sanitize_text(self.cleaned_data["phone"]))
-        if not PHONE_RE.match(phone):
-            raise forms.ValidationError("Please enter a valid phone number.")
+        phone = normalize_iranian_mobile(sanitize_text(self.cleaned_data["phone"]))
+        if not IRAN_MOBILE_RE.fullmatch(phone):
+            raise forms.ValidationError("Please enter a valid Iranian mobile number.")
         return phone
 
     def is_honeypot_triggered(self) -> bool:

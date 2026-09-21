@@ -2,12 +2,34 @@
     min-height: 60vh;
 }
 
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 32px 0 24px;
+    font-size: 14px;
+}
+
+.breadcrumb a {
+    color: var(--gray);
+    transition: color .2s;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent);
+}
+
+.breadcrumb span {
+    color: var(--white);
+}
+
 .visit-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 1fr);
-    gap: 64px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr);
+    gap: clamp(28px, 7vw, 88px);
     align-items: center;
-    padding: 64px 0 100px;
+    padding: clamp(32px, 7vw, 64px) 0 clamp(56px, 10vw, 100px);
 }
 
 .visit-page-copy {
@@ -16,26 +38,128 @@
 
 .visit-page-copy h1 {
     color: var(--white);
+    max-width: 12ch;
     font-size: clamp(30px, 5vw, 48px);
     line-height: 1.2;
     margin: 12px 0 20px;
 }
 
 .visit-page-copy > p:last-child {
+    max-width: 52ch;
+    font-size: clamp(14px, 1.7vw, 16px);
     line-height: 2;
 }
 
 .visit-form {
+    width: 100%;
+    max-width: 480px;
+    justify-self: end;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    border: 1px solid var(--gray);
-    padding: 24px;
-    transition: border-color .3s;
+    gap: 18px;
+    border: 1px solid rgba(171, 178, 191, .65);
+    padding: clamp(18px, 4vw, 32px);
+    background: rgba(32, 35, 42, .45);
+    box-shadow: 12px 12px 0 rgba(138, 79, 176, .35);
+    transition: border-color .3s, box-shadow .3s, transform .3s;
 }
 
 .visit-form:focus-within {
     border-color: var(--accent);
+    box-shadow: 14px 14px 0 rgba(138, 79, 176, .5);
+    transform: translateY(-2px);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    position: relative;
+}
+
+.form-group label {
+    color: var(--white);
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 13px;
+    border: 1px solid var(--gray);
+    border-radius: 2px;
+    background: var(--bg-alt);
+    color: var(--white);
+    font: 16px var(--font);
+    transition: border-color .25s, box-shadow .25s;
+}
+
+.form-group input::placeholder {
+    color: rgba(171, 178, 191, .65);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(199, 120, 221, .15);
+}
+
+.form-group .field-error {
+    max-height: 0;
+    overflow: hidden;
+    color: #e06c75;
+    font-size: 12px;
+    opacity: 0;
+    transition: max-height .25s ease, opacity .25s ease;
+}
+
+.form-group.error input {
+    border-color: #e06c75;
+}
+
+.form-group.error .field-error {
+    max-height: 20px;
+    opacity: 1;
+}
+
+#visit-submit {
+    align-self: flex-start;
+    cursor: pointer;
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+    overflow: visible;
+    animation: none;
+    box-shadow: 4px 4px 0 var(--accent-dark);
+    transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+}
+
+#visit-submit::before {
+    display: none;
+}
+
+#visit-submit:hover {
+    background: #d58be8;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--accent-dark);
+}
+
+#visit-submit:disabled {
+    opacity: .6;
+    cursor: default;
+}
+
+.form-status {
+    min-height: 20px;
+    font-size: 14px;
+}
+
+.form-status.success {
+    color: #98c379;
+}
+
+.form-status.error {
+    color: #e06c75;
 }
 
 @media (max-width: 760px) {
@@ -47,5 +171,45 @@
 
     .visit-copy, .visit-page-copy {
         max-width: 100%;
+    }
+
+    .visit-form {
+        justify-self: stretch;
+        max-width: none;
+    }
+}
+
+@media (max-width: 560px) {
+    .breadcrumb {
+        margin-top: 24px;
+        font-size: 12px;
+    }
+
+    .visit-hero {
+        gap: 24px;
+        padding-top: 28px;
+    }
+
+    .visit-page-copy h1 {
+        max-width: none;
+        font-size: clamp(28px, 9vw, 38px);
+    }
+
+    .visit-page-copy > p:last-child {
+        line-height: 1.75;
+    }
+
+    .visit-form {
+        padding: 18px;
+        box-shadow: 7px 7px 0 rgba(138, 79, 176, .4);
+    }
+
+    .visit-form:focus-within {
+        box-shadow: 8px 8px 0 rgba(138, 79, 176, .5);
+    }
+
+    #visit-submit {
+        width: 100%;
+        justify-content: center;
     }
 }

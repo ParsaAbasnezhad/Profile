@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import os
 import webbrowser
 import time
 from pathlib import Path
@@ -9,6 +10,8 @@ subprocess.Popen(
     [sys.executable, "manage.py", "runserver"],
     cwd=project_root,
 )
+
+print(os.path)
 
 time.sleep(2)
 
