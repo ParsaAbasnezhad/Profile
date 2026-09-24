@@ -24,6 +24,9 @@
 
 <p align="center">
   <a href="#features">Features</a> ·
+  <a href="#architecture">Architecture</a> ·
+  <a href="#project-structure">Structure</a> ·
+  <a href="#ui--ux-figma">UI/UX</a> ·
   <a href="#local-installation">Installation</a> ·
   <a href="#website-routes">Routes</a> ·
   <a href="#production-deployment">Deployment</a>
@@ -50,32 +53,117 @@
 - SQLite by default
 - Pillow for image uploads and processing
 - HTML, CSS, and JavaScript
+- Figma for UI/UX design (see [UI / UX (Figma)](#ui--ux-figma))
 
-## `03` / Project Structure
+## `03` / Architecture
+
+The project follows a classic Django MVT (Model–View–Template) layout with a
+security layer around every request.
+
+```text
+Browser
+  │
+  ▼
+Django URL router  (parsaabasnezhad/urls.py → main/urls.py)
+  │
+  ▼
+Middleware         (security headers, admin rate limiting, CSP)
+  │
+  ▼
+Views              (main/views.py)
+  │
+  ├── Models / ORM (main/models.py)  →  SQLite / database
+  ├── Forms        (main/forms.py)   →  validation + CSRF
+  └── Templates    (templates/)      →  HTML responses
+        │
+        ▼
+      Static files (static/css, static/js, static/assets, fonts)
+```
+
+### Layers
+
+| Layer | Responsibility |
+|---|---|
+| **Project config** (`parsaabasnezhad/`) | Settings, root URLs, WSGI/ASGI entrypoints, `.env` loading |
+| **Application** (`main/`) | Domain models, views, forms, admin, middleware, SEO helpers |
+| **Presentation** (`templates/`) | Server-rendered HTML; `base_site.html` wraps all public pages |
+| **Assets** (`static/`) | CSS, JavaScript, fonts, icons, and illustrations |
+| **Uploads** (`media/`) | User-uploaded images managed via Admin (not committed to Git) |
+| **Design** (Figma account) | Source of truth for UI and UX; implemented in templates/CSS |
+
+### Request flow
+
+1. The reverse proxy or development server receives an HTTP request.
+2. Django matches the path in `parsaabasnezhad/urls.py` (admin, sitemap) or
+   includes `main.urls` for public routes.
+3. Middleware adds security headers and applies rate limits where configured.
+4. A view loads data from models, validates forms when needed, and renders a
+   template (or returns JSON for form endpoints).
+5. Context processors inject shared data (for example, profile details) into
+   templates.
+6. The browser receives HTML plus static CSS/JS that implement the Figma design.
+
+### Design → code
+
+UI and UX are designed in **Figma**. The frontend implementation mirrors that
+design using:
+
+- `templates/base_site.html` as the shared layout (navbar, footer, meta tags)
+- Page templates under `templates/portfolio/`
+- Styles under `static/css/` (`base.css`, `home.css`, `project.css`, `visit.css`, …)
+- Client behavior in `static/js/script.js`
+
+## `04` / Project Structure
 
 ```text
 .
-├── main/                         # Main Django application
-│   ├── models.py                 # Profile, project, skill, and message models
-│   ├── views.py                  # Website views and form handlers
-│   ├── urls.py                   # Public website routes
-│   ├── admin.py                  # Django Admin configuration
-│   ├── middleware.py             # Security headers and rate limiting
-│   └── migrations/               # Database migrations
-├── parsaabasnezhad/
-│   ├── settings.py               # Django settings and .env loading
-│   ├── urls.py                   # Project-level URL configuration
+├── main/                              # Portfolio Django app
+│   ├── models.py                      # Profile, projects, skills, messages, …
+│   ├── views.py                       # Page views and form handlers
+│   ├── views_constants.py             # Shared view helpers / constants
+│   ├── urls.py                        # Public website routes
+│   ├── forms.py                       # Contact and visit-request forms
+│   ├── admin.py                       # Django Admin configuration
+│   ├── middleware.py                  # Extra security headers & admin limits
+│   ├── security.py                    # Rate limiting and request-size helpers
+│   ├── context_processors.py          # Template-wide context
+│   ├── sitemaps.py                    # SEO sitemaps
+│   ├── tests.py                       # Automated tests
+│   └── migrations/                    # Database migrations
+├── parsaabasnezhad/                   # Project package
+│   ├── settings.py                    # Django settings and .env loading
+│   ├── urls.py                        # Root URL configuration
 │   ├── asgi.py
 │   └── wsgi.py
-├── templates/                    # HTML templates
-├── static/                       # CSS, JavaScript, and public assets
-├── media/                        # Uploaded files, excluded from Git
+├── templates/
+│   ├── base_site.html                 # Base HTML layout
+│   ├── 404.html / 500.html            # Custom error pages
+│   ├── partials/                      # Navbar, footer
+│   ├── portfolio/                     # Home, project detail, visit pages
+│   └── admin/                         # Admin branding overrides
+├── static/
+│   ├── css/                           # Stylesheets
+│   ├── js/                            # Client-side scripts
+│   ├── fonts/                         # Self-hosted Fira Code
+│   └── assets/                        # Logos, icons, illustrations
+├── media/                             # Uploaded files (gitignored)
 ├── manage.py
+├── start_server.py                    # Dev helper: runserver + open browser
 ├── requirements.txt
-└── .env.example
+├── .env.example
+└── README.md
 ```
 
-## `04` / Local Installation
+## `05` / UI / UX (Figma)
+
+**All UI and UX design work lives in the Figma account.**
+
+Figma is the design source of truth for layout, typography, color, spacing, and
+interaction patterns. This repository contains the Django implementation of
+that design (templates, CSS, and assets). When visual changes are required,
+update the Figma files first, then mirror them in `templates/` and `static/`.
+
+## `06` / Local Installation
 
 The following commands use Windows PowerShell:
 
@@ -118,7 +206,7 @@ also start the server and open the browser automatically:
 python start_server.py
 ```
 
-## `05` / Environment Configuration
+## `07` / Environment Configuration
 
 Settings are loaded from `.env` and system environment variables.
 
@@ -144,7 +232,7 @@ DJANGO_ADMIN_URL=secure-admin/
 DJANGO_TRUST_X_FORWARDED_FOR=True
 ```
 
-## `06` / Website Routes
+## `08` / Website Routes
 
 | Route | Description |
 |---|---|
@@ -160,7 +248,7 @@ DJANGO_TRUST_X_FORWARDED_FOR=True
 The Admin path is not hardcoded in the URL configuration. It is loaded from
 the `DJANGO_ADMIN_URL` environment variable.
 
-## `07` / Content Management
+## `09` / Content Management
 
 After creating a superuser, use the Admin panel to manage:
 
@@ -177,7 +265,7 @@ After creating a superuser, use the Admin panel to manage:
 For a complete homepage, create at least one `Profile` and add the required
 projects, skills, and contact links through the Admin panel.
 
-## `08` / Testing and Validation
+## `10` / Testing and Validation
 
 Check the Django configuration:
 
@@ -191,7 +279,7 @@ Run the test suite:
 python manage.py test
 ```
 
-## `09` / Production Deployment
+## `11` / Production Deployment
 
 Before deploying:
 
@@ -213,7 +301,7 @@ Before deploying:
    Nginx or a managed cloud service. `runserver` is for development only.
 9. Enable HTTPS, database backups, and restricted access to the Admin panel.
 
-## `10` / Security
+## `12` / Security
 
 - `.env`, the database, and uploaded media are excluded from Git.
 - Never place real secrets in `settings.py` or any other source file.
