@@ -1,6 +1,7 @@
 {% extends 'base_site.html' %}
 {% load static %}
-{% block title %}{{ profile.full_name|default:"Parsa Abasnezhad" }} | متخصص پایتون و توسعه‌دهنده فول‌استک{% endblock title %}
+{% block title %}{{ profile.full_name|default:"Parsa Abasnezhad" }} | متخصص پایتون و توسعه‌دهنده
+    فول‌استک{% endblock title %}
 {% block og_title %}{{ profile.full_name|default:"Parsa Abasnezhad" }} | Python Developer{% endblock og_title %}
 
 {% block extra_css %}
@@ -40,7 +41,137 @@
                 </div>
             {% endif %}
         </div>
+        <div class="hero-eye" aria-hidden="true">
+    <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
 
+        <defs>
+
+            <!-- محوشدگی بسیار نرم -->
+            <filter
+                id="glassBlur"
+                x="-30%"
+                y="-30%"
+                width="160%"
+                height="160%"
+            >
+                <feGaussianBlur stdDeviation="2.5"/>
+            </filter>
+
+            <!-- محوشدگی بیشتر برای هاله -->
+            <filter
+                id="softGlass"
+                x="-40%"
+                y="-40%"
+                width="180%"
+                height="180%"
+            >
+                <feGaussianBlur stdDeviation="10"/>
+            </filter>
+
+            <!-- هاله‌ی بسیار ضعیف -->
+            <radialGradient id="glassFade">
+                <stop
+                    offset="0%"
+                    stop-color="#ffffff"
+                    stop-opacity="0.025"
+                />
+
+                <stop
+                    offset="55%"
+                    stop-color="#ffffff"
+                    stop-opacity="0.012"
+                />
+
+                <stop
+                    offset="100%"
+                    stop-color="#ffffff"
+                    stop-opacity="0"
+                />
+            </radialGradient>
+
+        </defs>
+
+
+        <!-- هاله‌ی شیشه‌ای -->
+        <circle
+            cx="512"
+            cy="545"
+            r="330"
+            fill="url(#glassFade)"
+            filter="url(#softGlass)"
+        />
+
+
+        <!-- مثلث بسیار محو -->
+        <path
+            d="M512 370
+               L330 660
+               L694 660
+               Z"
+            fill="none"
+            stroke="#ffffff"
+            stroke-opacity="0.022"
+            stroke-width="5"
+            stroke-linejoin="round"
+            filter="url(#glassBlur)"
+        />
+
+
+        <!-- لایه‌ی دوم مثلث برای حس شیشه -->
+        <path
+            d="M512 374
+               L336 656
+               L688 656
+               Z"
+            fill="none"
+            stroke="#ffffff"
+            stroke-opacity="0.012"
+            stroke-width="3"
+            stroke-linejoin="round"
+            filter="url(#softGlass)"
+        />
+
+
+        <!-- چشم بسیار محو -->
+        <path
+            d="M395 545
+               Q512 435 629 545
+               Q512 655 395 545 Z"
+            fill="none"
+            stroke="#ffffff"
+            stroke-opacity="0.028"
+            stroke-width="5"
+            stroke-linecap="round"
+            filter="url(#glassBlur)"
+        />
+
+
+        <!-- لایه‌ی نرم‌تر چشم -->
+        <path
+            d="M402 545
+               Q512 442 622 545
+               Q512 648 402 545 Z"
+            fill="none"
+            stroke="#ffffff"
+            stroke-opacity="0.012"
+            stroke-width="7"
+            stroke-linecap="round"
+            filter="url(#softGlass)"
+        />
+
+
+        <!-- مردمک تقریباً نامرئی -->
+        <circle
+            cx="512"
+            cy="545"
+            r="13"
+            fill="#ffffff"
+            fill-opacity="0.018"
+            filter="url(#glassBlur)"
+        />
+
+    </svg>
+</div>
 
     </section>
 
@@ -194,7 +325,8 @@
             <div class="about-media reveal reveal-delay-2">
                 {% if profile.about_image %}
                     <img src="{{ profile.about_image.url }}" alt="{{ profile.full_name }} workspace illustration"
-                         class="about-image" width="{{ profile.about_image.width }}" height="{{ profile.about_image.height }}"
+                         class="about-image" width="{{ profile.about_image.width }}"
+                         height="{{ profile.about_image.height }}"
                          loading="lazy" decoding="async">
                 {% else %}
                     <img src="{% static 'assets/about-illustration.svg' %}" alt="Workspace illustration"

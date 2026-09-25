@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <g fill="none" stroke="#fff" stroke-width="24" stroke-linejoin="miter" stroke-linecap="round">
+    <!-- Triangle -->
+    <path d="M512 370 L330 660 L694 660 Z" />
+
+    <!-- Eye -->
+    <path d="M395 545 Q512 430 629 545 Q512 660 395 545 Z"/>
+  </g>
+
+  <!-- Pupil -->
+  <circle cx="512" cy="545" r="34" fill="#8a4fb0"/>
+  <circle cx="512" cy="545" r="14" fill="#000"/>
+</svg>
